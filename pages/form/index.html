@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="./normalize.css">
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+    <div class=" form-container">
+        <div class="col-75">
+            <div class="container">
+                <form action="/action_page.php">
+                    <h3>Billing Address</h3>
+
+                    <div class="row">
+
+                        <div class="col-50">
+                            <label for="fname"><i class="fa fa-user"></i> Name</label>
+                            <input type="text" id="fname" name="fname">
+                        </div>
+                        <div class="col-50">
+                            <label for="lname"><i class="fa fa-user"></i> Surname</label>
+                            <input type="text" id="lname" name="lname">
+                        </div>
+                        <div class="col-50">
+                            <label for="date"><i class="fa fa-user"></i> Delivery date</label>
+                            <input type="date" id="date" name="date">
+                        </div>
+                        <div class="col-50">
+                            <label for="street"><i class="fa fa-envelope"></i> Street</label>
+                            <input type="text" id="street" name="street">
+                        </div>
+                        <div class="col-50">
+                            <label for="house"><i class="fa fa-address-card-o"></i> House</label>
+                            <input type="text" id="house" name="house">
+                        </div>
+                        <div class="col-50">
+                            <label for="flat"><i class="fa fa-institution"></i>Flat number*</label>
+                            <input type="text" id="flat" name="flat">
+                        </div>
+                        <div class="flex flex-col">
+                        <div class="col-50">
+                        <div class="flex flex-col">
+                            <div>Choose the payment type*</div>
+                            <div class="radio" id="CashDiv">
+                                <input type="radio" id="Cash" name="payment_type" value="Cash" required>
+                                <label class="form-radio" for="Cash"> Cash</label>
+                            </div>
+                            <div class="radio" id="CardDiv">
+                                <input type="radio" id="Card" name="payment_type" value="Card">
+                                <label class="form-radio" for="Card"> Card</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-50">
+                    <div class="checkbox-wrapper">
+                        <p>Choose 2 gifts</p>
+                        <div class="checkbox">
+                            <input type="checkbox" id="pack" name="pack" value="pack">
+                            <label for="pack"> pack as a gift</label><br>
+                        </div>
+                        <div class="checkbox">
+                            <input type="checkbox" id="postcard" name="postcard" value="postcard">
+                            <label for="postcard"> add postcard</label><br>
+                        </div>
+                        <div class="checkbox">
+                            <input type="checkbox" id="discount" name="discount" value="discount">
+                            <label for="discount"> provide 2% discount to the next time</label><br>
+                        </div>
+                        <div class="checkbox">
+                            <input type="checkbox" id="pen" name="pen" value="pen">
+                            <label for="pen"> branded pen or pencil</label>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+                    </div>
+                    <input type="submit" value="Continue to checkout" class="btn">
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- custom js file link  -->
+    <script src="./index.js"></script>
+
+</body>
+
+</html>
