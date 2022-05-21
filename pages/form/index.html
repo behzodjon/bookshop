@@ -17,75 +17,87 @@
     <div class=" form-container">
         <div class="col-75">
             <div class="container">
-                <form action="/action_page.php">
+                <form id="form" name="myForm" method="post">
                     <h3>Billing Address</h3>
 
                     <div class="row">
 
                         <div class="col-50">
-                            <label for="fname"><i class="fa fa-user"></i> Name</label>
+                            <label for="fname"><i class="fa fa-user"></i> Name*</label>
                             <input type="text" id="fname" name="fname">
+                            <small></small>
                         </div>
                         <div class="col-50">
-                            <label for="lname"><i class="fa fa-user"></i> Surname</label>
+                            <label for="lname"><i class="fa fa-user"></i> Surname*</label>
                             <input type="text" id="lname" name="lname">
+                            <small></small>
                         </div>
                         <div class="col-50">
-                            <label for="date"><i class="fa fa-user"></i> Delivery date</label>
+                            <label for="date"><i class="fa fa-user"></i> Delivery date*</label>
                             <input type="date" id="date" name="date">
+                            <small></small>
                         </div>
                         <div class="col-50">
-                            <label for="street"><i class="fa fa-envelope"></i> Street</label>
+                            <label for="street"><i class="fa fa-envelope"></i> Street*</label>
                             <input type="text" id="street" name="street">
+                            <small></small>
                         </div>
                         <div class="col-50">
-                            <label for="house"><i class="fa fa-address-card-o"></i> House</label>
+                            <label for="house"><i class="fa fa-address-card-o"></i> House*</label>
                             <input type="text" id="house" name="house">
+                            <small></small>
                         </div>
                         <div class="col-50">
                             <label for="flat"><i class="fa fa-institution"></i>Flat number*</label>
                             <input type="text" id="flat" name="flat">
+                            <small></small>
                         </div>
                         <div class="flex flex-col">
-                        <div class="col-50">
-                        <div class="flex flex-col">
-                            <div>Choose the payment type*</div>
-                            <div class="radio" id="CashDiv">
-                                <input type="radio" id="Cash" name="payment_type" value="Cash" required>
-                                <label class="form-radio" for="Cash"> Cash</label>
+                            <div class="col-50">
+                                <div class="flex flex-col">
+                                    <div>Choose the payment type*</div>
+                                    <div class="radio" id="CashDiv">
+                                        <input type="radio" id="Cash" name="payment_type" value="Cash" required>
+                                        <label class="form-radio" for="Cash"> Cash</label>
+                                    </div>
+                                    <div class="radio" id="CardDiv">
+                                        <input type="radio" id="Card" name="payment_type" value="Card" required>
+                                        <label class="form-radio" for="Card"> Card</label>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="radio" id="CardDiv">
-                                <input type="radio" id="Card" name="payment_type" value="Card">
-                                <label class="form-radio" for="Card"> Card</label>
+                            <div class="col-50">
+                                <div class="checkbox-wrapper">
+                                    <p>Choose 2 gifts</p>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="pack" name="pack" value="pack">
+                                        <label for="pack"> pack as a gift</label><br>
+                                    </div>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="postcard" name="postcard" value="postcard">
+                                        <label for="postcard"> add postcard</label><br>
+                                    </div>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="discount" name="discount" value="discount">
+                                        <label for="discount"> provide 2% discount to the next time</label><br>
+                                    </div>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="pen" name="pen" value="pen">
+                                        <label for="pen"> branded pen or pencil</label>
+                                    </div>
+                                    <br>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-50">
-                    <div class="checkbox-wrapper">
-                        <p>Choose 2 gifts</p>
-                        <div class="checkbox">
-                            <input type="checkbox" id="pack" name="pack" value="pack">
-                            <label for="pack"> pack as a gift</label><br>
-                        </div>
-                        <div class="checkbox">
-                            <input type="checkbox" id="postcard" name="postcard" value="postcard">
-                            <label for="postcard"> add postcard</label><br>
-                        </div>
-                        <div class="checkbox">
-                            <input type="checkbox" id="discount" name="discount" value="discount">
-                            <label for="discount"> provide 2% discount to the next time</label><br>
-                        </div>
-                        <div class="checkbox">
-                            <input type="checkbox" id="pen" name="pen" value="pen">
-                            <label for="pen"> branded pen or pencil</label>
-                        </div>
-                        <br>
-                    </div>
-                </div>
-            </div>
-                    </div>
-                    <input type="submit" value="Continue to checkout" class="btn">
+                    <button id="form-btn" type="submit" class="btn" disabled>Continue to checkout</button>
                 </form>
+                <div class="details" id="details">
+                    <h1>Details</h1>
+                    <p> The order created. The delivery address is <span id="streetVal">  </span> street
+                        house <span id="houseVal">  </span> flat <span id="flatVal">.</span> Customer <span
+                            id="nameVal"></span> <span id="surnameVal"> </span>.</p>
+                </div>
             </div>
         </div>
 
