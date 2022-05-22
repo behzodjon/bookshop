@@ -63,7 +63,7 @@ const app = {
         app.createElement('div', 'books-table', 'books-table', document.querySelector('.main-blocks'));
         app.createElement('div', 'introduction', 'introduction', document.querySelector('.books-table'));
         app.createElement('h1', 'h1', 'h1', document.querySelector('.introduction'));
-        document.querySelector('h1').innerHTML = 'Incredible Books World';
+        document.querySelector('h1').innerHTML = 'Amazing BookShop';
         app.createElement('p', 'intro-text', 'intro-text', document.querySelector('.introduction'));
         document.querySelector('.intro-text').innerHTML = 'There is no friend as loyal as a book.';
         app.createElement('div', 'productcont', 'productcont', document.querySelector('.books-table'));
