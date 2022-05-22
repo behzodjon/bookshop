@@ -36,8 +36,8 @@ const app = {
                 const imgV = data[`${count}`].img;
                 app.createImg(`book${count}`, `book${count}`, document.querySelectorAll('.imgWrap')[count], imgV);
                 let imgItem = document.querySelector(`.book${count}`);
-
                 document.querySelector(`.book${count}`).classList.add('img');
+                document.querySelector(`.book${count}`).draggable="true";
                 app.createElement('div', 'about-book', 'about-book', document.querySelectorAll('.product')[count]);
                 app.createElement('p', 'title', 'title', document.querySelectorAll('.about-book')[count]);
                 document.querySelectorAll('.title')[count].innerHTML = data[`${count}`].title;
@@ -60,13 +60,13 @@ const app = {
         app.createElement('div', 'fix', 'fix', document.querySelector('.container'));
         app.createElement('main', 'main', 'main', document.querySelector('.fix'));
         app.createElement('div', 'main-blocks', 'main-blocks', document.querySelector('.main'));
-        app.createElement('div', 'shelf', 'shelf', document.querySelector('.main-blocks'));
-        app.createElement('div', 'introduction', 'introduction', document.querySelector('.shelf'));
+        app.createElement('div', 'books-table', 'books-table', document.querySelector('.main-blocks'));
+        app.createElement('div', 'introduction', 'introduction', document.querySelector('.books-table'));
         app.createElement('h1', 'h1', 'h1', document.querySelector('.introduction'));
         document.querySelector('h1').innerHTML = 'Incredible Books World';
         app.createElement('p', 'intro-text', 'intro-text', document.querySelector('.introduction'));
-        document.querySelector('.intro-text').innerHTML = 'A room without books is like a body without a soul';
-        app.createElement('div', 'productcont', 'productcont', document.querySelector('.shelf'));
+        document.querySelector('.intro-text').innerHTML = 'There is no friend as loyal as a book.';
+        app.createElement('div', 'productcont', 'productcont', document.querySelector('.books-table'));
         for (let i = 0; i < 3; i += 1) {
             app.createBooksList(i);
         }
@@ -74,10 +74,6 @@ const app = {
         app.createElement('div', 'bag', 'bag', document.querySelector('.main-blocks'));
         app.createElement('div', 'bag-text', 'bag-text', document.querySelector('.bag'));
         document.querySelector('.bag-text').innerHTML = 'Cart items';
-
-        app.createElement('footer', 'footer', 'footer', document.querySelector('.fix'));
-        app.createElement('div', 'footer-blocks', 'footer-blocks', document.querySelector('.footer'));
-        app.createElement('a', 'footer-links', 'footer-links', document.querySelector('.footer-blocks'));
         app.createElement('div', 'modal', 'modal', document.querySelector('.container'));
         app.createElement('div', 'modal-content', 'modal-content', document.querySelector('.modal'));
         app.createElement('p', 'modal-desc', 'modal-desc', document.querySelector('.modal-content'));
@@ -185,5 +181,42 @@ app.createMainApplication();
 
 
 
+
+// drag and drop functionality
+let draggedBook;
+document.addEventListener("drag", function( event ) {
+    draggedBook = event.target.alt[event.target.alt.length - 1];
+}, false);
+
+document.addEventListener("dragstart", function( event ) {
+    event.target.style.cursor = 'grabbing';
+}, false);
+
+document.addEventListener("dragend", function( event ) {
+    event.target.style.opacity = "";
+}, false);
+
+document.addEventListener("dragenter", function( event ) {
+    if ( event.target.className == "bag" ) {
+        event.target.style.background = "#f3e5d0";
+    }
+}, false);
+
+document.addEventListener("dragleave", function( event ) {
+    if ( event.target.className == "bag" ) {
+        event.target.style.background = "none";
+    }
+}, false);
+
+document.addEventListener("dragover", function( event ) {
+    event.preventDefault();
+}, false);
+
+document.addEventListener("drop", function( event ) {
+    if ( event.target.className == "bag") {
+            event.target.style.background = "none";
+            app.createBooksListCart(draggedBook);
+    }
+}, false);
 
 
