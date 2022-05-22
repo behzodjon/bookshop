@@ -51,6 +51,7 @@ const app = {
                 app.createElement('button', 'add-to-bag', 'add-to-bag', document.querySelectorAll('.about-book')[count]);
                 document.querySelectorAll('button')[count].innerHTML = 'Add to cart';
                 document.querySelectorAll('button')[count].addEventListener('click', () => app.createBooksListCart(count));
+                document.querySelectorAll('.show-more')[count].addEventListener('click', () => app.showModal(count));
             });
     },
 
@@ -77,7 +78,11 @@ const app = {
         app.createElement('footer', 'footer', 'footer', document.querySelector('.fix'));
         app.createElement('div', 'footer-blocks', 'footer-blocks', document.querySelector('.footer'));
         app.createElement('a', 'footer-links', 'footer-links', document.querySelector('.footer-blocks'));
-
+        app.createElement('div', 'modal', 'modal', document.querySelector('.container'));
+        app.createElement('div', 'modal-content', 'modal-content', document.querySelector('.modal'));
+        app.createElement('p', 'modal-desc', 'modal-desc', document.querySelector('.modal-content'));
+        app.createElement('span', 'closeIcon', 'close', document.querySelector('.modal-content'));
+        document.querySelector('.close').innerHTML = 'X';
     },
 
 
@@ -90,7 +95,7 @@ const app = {
                 2000);
         } else {
             fetch('../../pages/main/books.json')
-            .then(response => {
+                .then(response => {
                     return response.json();
                 })
                 .then(data => {
@@ -114,7 +119,7 @@ const app = {
                         app.createElement('button', 'total-button', 'total-button', document.querySelector('.sum'));
                         app.createElement('a', 'total-button-a', 'total-button-a', document.querySelector('.total-button'));
                         document.querySelector('.total-button-a').innerHTML = 'Checkout';
-                        document.querySelector('.total-button-a').setAttribute('href', 'https://yuliyashu.github.io/books-shop-js/pages/order/');
+                        document.querySelector('.total-button-a').setAttribute('href', '../../pages/form');
                         document.querySelector('.total-button-a').setAttribute('target', '_blank');
                     }
                     document.querySelector('.total').innerHTML = `Total:  $ ${app.totalSum()}`;
@@ -145,7 +150,40 @@ const app = {
         localStorage.setItem('sum', sumInBag);
         return sumInBag;
     },
+
+    showModal(countItem) {
+        fetch('../../pages/main/books.json')
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+
+                document.querySelector('.modal-desc').innerHTML = data[`${countItem}`].description;
+                // Get the modal
+                var modal = document.getElementsByClassName("modal");
+                modal[0].style.display = "block";
+                var span = document.querySelector('.close');
+
+                // When the user clicks on <span> (x), close the modal
+                span.onclick = function () {
+                    modal[0].style.display = "none";
+                }
+
+                // When the user clicks anywhere outside of the modal, close it
+                window.onclick = function (event) {
+                    if (event.target == modal[0]) {
+                        modal[0].style.display = "none";
+                    }
+                }
+            });
+    }
 };
+
+
+
 app.createMainApplication();
+
+
+
 
 

@@ -189,6 +189,7 @@ form.addEventListener('submit', function (e) {
     let paymentTypes = document.getElementsByName('payment_type');
 
     document.getElementById("details").style.display = "block";
+    document.getElementById("form").style.display = "none";
 
     for (i = 0; i < paymentTypes.length; i++) {
         if (paymentTypes[i].checked)
