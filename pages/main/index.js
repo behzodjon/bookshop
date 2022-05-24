@@ -1,23 +1,28 @@
 const app = {
-    addWrapper() {
-        const wrapper = document.createElement('div');
-        document.body.prepend(wrapper);
-        wrapper.classList.add('container');
+
+    //create main container
+    createContainer() {
+        const container = document.createElement('div');
+        document.body.prepend(container);
+        container.classList.add('container');
     },
 
+    //create simple element
     createElement(element, name, className, position) {
         name = document.createElement(element);
         position.append(name);
         name.classList.add(className);
     },
 
+    //create simple elementprepend
     createElementPrepend(element, name, className, position) {
         name = document.createElement(element);
         position.prepend(name);
         name.classList.add(className);
     },
 
-    createImg(name, className, position, src) {
+    //create image
+    createImage(name, className, position, src) {
         name = document.createElement('img');
         position.append(name);
         name.classList.add(className);
@@ -25,92 +30,90 @@ const app = {
         name.alt = className;
     },
 
-    createBooksList(count) {
+
+  //init application
+  createMainApplication() {
+    app.createContainer();
+    app.createElement('main', 'main', 'main', document.querySelector('.container'));
+    app.createElement('div', 'main-blocks', 'main-blocks', document.querySelector('.main'));
+    app.createElement('div', 'books-table', 'books-table', document.querySelector('.main-blocks'));
+    app.createElement('div', 'introduction', 'introduction', document.querySelector('.books-table'));
+    app.createElement('h1', 'h1', 'h1', document.querySelector('.introduction'));
+    document.querySelector('h1').innerHTML = 'Amazing BookShop';
+    app.createElement('p', 'intro-text', 'intro-text', document.querySelector('.introduction'));
+    document.querySelector('.intro-text').innerHTML = 'There is no friend as loyal as a book.';
+    app.createElement('div', 'productcont', 'productcont', document.querySelector('.books-table'));
+    for (let i = 0; i < 3; i += 1) {
+        app.createBooksList(i);
+    }
+    app.createElement('div', 'space', 'space', document.querySelector('.main-blocks'));
+    app.createElement('div', 'cart', 'cart', document.querySelector('.main-blocks'));
+    app.createElement('div', 'cart-text', 'cart-text', document.querySelector('.cart'));
+    document.querySelector('.cart-text').innerHTML = 'Cart items';
+    app.createElement('div', 'modal', 'modal', document.querySelector('.container'));
+    app.createElement('div', 'modal-content', 'modal-content', document.querySelector('.modal'));
+    app.createElement('p', 'modal-desc', 'modal-desc', document.querySelector('.modal-content'));
+    app.createElement('span', 'closeIcon', 'close', document.querySelector('.modal-content'));
+    document.querySelector('.close').innerHTML = 'X';
+},
+    //populating books list
+    createBooksList(item) {
         fetch('../../pages/main/books.json')
             .then(response => {
                 return response.json();
             })
             .then(data => {
                 app.createElement('div', 'product', 'product', document.querySelector('.productcont'));
-                app.createElement('div', 'imgWrap', 'imgWrap', document.querySelectorAll('.product')[count]);
-                const imgV = data[`${count}`].img;
-                app.createImg(`book${count}`, `book${count}`, document.querySelectorAll('.imgWrap')[count], imgV);
-                let imgItem = document.querySelector(`.book${count}`);
-                document.querySelector(`.book${count}`).classList.add('img');
-                document.querySelector(`.book${count}`).draggable="true";
-                app.createElement('div', 'about-book', 'about-book', document.querySelectorAll('.product')[count]);
-                app.createElement('p', 'title', 'title', document.querySelectorAll('.about-book')[count]);
-                document.querySelectorAll('.title')[count].innerHTML = data[`${count}`].title;
-                if (data[`${count}`].title.length < 14) app.createElement('br', 'br', 'br', document.querySelectorAll('.about-book')[count]);
-                app.createElement('p', 'author', 'author', document.querySelectorAll('.about-book')[count]);
-                document.querySelectorAll('.author')[count].innerHTML = data[`${count}`].author;
-                app.createElement('p', 'price', 'price', document.querySelectorAll('.about-book')[count]);
-                document.querySelectorAll('.price')[count].innerHTML = `$${data[`${count}`].price}`;
-                app.createElement('p', 'show-more', 'show-more', document.querySelectorAll('.about-book')[count]);
-                document.querySelectorAll('.show-more')[count].innerHTML = 'Show more';
-                app.createElement('button', 'add-to-bag', 'add-to-bag', document.querySelectorAll('.about-book')[count]);
-                document.querySelectorAll('button')[count].innerHTML = 'Add to cart';
-                document.querySelectorAll('button')[count].addEventListener('click', () => app.createBooksListCart(count));
-                document.querySelectorAll('.show-more')[count].addEventListener('click', () => app.showModal(count));
+                app.createElement('div', 'imgWrap', 'imgWrap', document.querySelectorAll('.product')[item]);
+                const imageItem = data[`${item}`].img;
+                app.createImage(`bookImg${item}`, `bookImg${item}`, document.querySelectorAll('.imgWrap')[item], imageItem);
+                document.querySelector(`.bookImg${item}`).classList.add('img');
+                document.querySelector(`.bookImg${item}`).draggable = "true";
+                app.createElement('div', 'about-book', 'about-book', document.querySelectorAll('.product')[item]);
+                app.createElement('p', 'title', 'title', document.querySelectorAll('.about-book')[item]);
+                document.querySelectorAll('.title')[item].innerHTML = data[`${item}`].title;
+                if (data[`${item}`].title.length < 14) app.createElement('br', 'br', 'br', document.querySelectorAll('.about-book')[item]);
+                app.createElement('p', 'author', 'author', document.querySelectorAll('.about-book')[item]);
+                document.querySelectorAll('.author')[item].innerHTML = data[`${item}`].author;
+                app.createElement('p', 'price', 'price', document.querySelectorAll('.about-book')[item]);
+                document.querySelectorAll('.price')[item].innerHTML = `$${data[`${item}`].price}`;
+                app.createElement('p', 'show-more', 'show-more', document.querySelectorAll('.about-book')[item]);
+                document.querySelectorAll('.show-more')[item].innerHTML = 'Show more';
+                app.createElement('button', 'add-to-bag', 'add-to-bag', document.querySelectorAll('.about-book')[item]);
+                document.querySelectorAll('button')[item].innerHTML = 'Add to cart';
+                document.querySelectorAll('button')[item].addEventListener('click', () => app.createBooksListCart(item));
+                document.querySelectorAll('.show-more')[item].addEventListener('click', () => app.showModal(item));
             });
     },
 
-    createMainApplication() {
-        app.addWrapper();
-        app.createElement('div', 'fix', 'fix', document.querySelector('.container'));
-        app.createElement('main', 'main', 'main', document.querySelector('.fix'));
-        app.createElement('div', 'main-blocks', 'main-blocks', document.querySelector('.main'));
-        app.createElement('div', 'books-table', 'books-table', document.querySelector('.main-blocks'));
-        app.createElement('div', 'introduction', 'introduction', document.querySelector('.books-table'));
-        app.createElement('h1', 'h1', 'h1', document.querySelector('.introduction'));
-        document.querySelector('h1').innerHTML = 'Amazing BookShop';
-        app.createElement('p', 'intro-text', 'intro-text', document.querySelector('.introduction'));
-        document.querySelector('.intro-text').innerHTML = 'There is no friend as loyal as a book.';
-        app.createElement('div', 'productcont', 'productcont', document.querySelector('.books-table'));
-        for (let i = 0; i < 3; i += 1) {
-            app.createBooksList(i);
-        }
-        app.createElement('div', 'space', 'space', document.querySelector('.main-blocks'));
-        app.createElement('div', 'bag', 'bag', document.querySelector('.main-blocks'));
-        app.createElement('div', 'bag-text', 'bag-text', document.querySelector('.bag'));
-        document.querySelector('.bag-text').innerHTML = 'Cart items';
-        app.createElement('div', 'modal', 'modal', document.querySelector('.container'));
-        app.createElement('div', 'modal-content', 'modal-content', document.querySelector('.modal'));
-        app.createElement('p', 'modal-desc', 'modal-desc', document.querySelector('.modal-content'));
-        app.createElement('span', 'closeIcon', 'close', document.querySelector('.modal-content'));
-        document.querySelector('.close').innerHTML = 'X';
-    },
+  
 
 
-    createBooksListCart(countItem) {
-        if (document.querySelectorAll('.book-set-bag').length == 5) {
+    createBooksListCart(item) {
+        if (document.querySelectorAll('.book-cart').length == 4) {
             document.querySelector('.space').innerHTML = 'Your cart is full';
-            setTimeout(() => {
-                document.querySelector('.space').innerHTML = ''
-            },
-                2000);
         } else {
             fetch('../../pages/main/books.json')
                 .then(response => {
                     return response.json();
                 })
                 .then(data => {
-                    app.createElementPrepend('div', 'book-set-bag', 'book-set-bag', document.querySelector('.bag'));
-                    const imgV = data[`${countItem}`].img;
-                    app.createImg(`book-bag-${countItem}`, `book-bag-${countItem}`, document.querySelectorAll('.book-set-bag')[0], imgV);
-                    app.createElement('div', 'cross', 'cross', document.querySelectorAll('.book-set-bag')[0]);
+                    app.createElementPrepend('div', 'book-cart', 'book-cart', document.querySelector('.cart'));
+                    const imageItem = data[`${item}`].img;
+                    app.createImage(`book-bag-${item}`, `book-bag-${item}`, document.querySelectorAll('.book-cart')[0], imageItem);
+                    app.createElement('div', 'cross', 'cross', document.querySelectorAll('.book-cart')[0]);
                     document.querySelectorAll('.cross')[0].innerHTML = 'x';
-                    app.createElement('div', 'about-book-bag', 'about-book-bag', document.querySelectorAll('.book-set-bag')[0]);
-                    app.createElement('p', 'title-bag', 'title-bag', document.querySelectorAll('.about-book-bag')[0]);
-                    document.querySelectorAll('.title-bag')[0].innerHTML = data[`${countItem}`].title;
-                    app.createElement('p', 'author-bag', 'author-bag', document.querySelectorAll('.about-book-bag')[0]);
-                    document.querySelectorAll('.author-bag')[0].innerHTML = data[`${countItem}`].author;
-                    app.createElement('p', 'price-bag', 'price-bag', document.querySelectorAll('.about-book-bag')[0]);
-                    document.querySelectorAll('.price-bag')[0].innerHTML = `$${data[`${countItem}`].price}`;
+                    app.createElement('div', 'about-book-cart', 'about-book-cart', document.querySelectorAll('.book-cart')[0]);
+                    app.createElement('p', 'title-bag', 'title-bag', document.querySelectorAll('.about-book-cart')[0]);
+                    document.querySelectorAll('.title-bag')[0].innerHTML = data[`${item}`].title;
+                    app.createElement('p', 'author-cart', 'author-cart', document.querySelectorAll('.about-book-cart')[0]);
+                    document.querySelectorAll('.author-cart')[0].innerHTML = data[`${item}`].author;
+                    app.createElement('p', 'book-price', 'book-price', document.querySelectorAll('.about-book-cart')[0]);
+                    document.querySelectorAll('.book-price')[0].innerHTML = `$${data[`${item}`].price}`;
 
-                    if (!document.querySelector('.bag-text').innerHTML == '') {
-                        document.querySelector('.bag-text').innerHTML = '';
-                        app.createElement('div', 'sum', 'sum', document.querySelector('.bag'));
+                    if (!document.querySelector('.cart-text').innerHTML == '') {
+                        document.querySelector('.cart-text').innerHTML = '';
+                        app.createElement('div', 'sum', 'sum', document.querySelector('.cart'));
                         app.createElement('p', 'total', 'total', document.querySelector('.sum'));
                         app.createElement('button', 'total-button', 'total-button', document.querySelector('.sum'));
                         app.createElement('a', 'total-button-a', 'total-button-a', document.querySelector('.total-button'));
@@ -124,9 +127,9 @@ const app = {
                         document.querySelectorAll('.cross')[i].addEventListener('click', (e) => {
                             e.target.parentElement.remove();
                             document.querySelector('.total').innerHTML = `Total:  $ ${app.totalSum()}`;
-                            if (document.querySelectorAll('.book-set-bag').length == 0) {
+                            if (document.querySelectorAll('.book-cart').length == 0) {
                                 document.querySelector('.sum').innerHTML = '';
-                                document.querySelector('.bag-text').innerHTML = 'Cart items';
+                                document.querySelector('.cart-text').innerHTML = 'Cart items';
                             }
 
                         })
@@ -137,24 +140,23 @@ const app = {
 
     },
     totalSum() {
-        let sumInBag = 0;
-        const bag = document.querySelectorAll('.book-set-bag');
-        for (let i = 0; i < bag.length; i += 1) {
-            const x = document.querySelectorAll('.price-bag')[i].innerHTML.substring(1, document.querySelectorAll('.price-bag')[i].innerHTML.length);
-            sumInBag += +x;
+        let totalSum = 0;
+        const cart = document.querySelectorAll('.book-cart');
+        for (let i = 0; i < cart.length; i += 1) {
+            const x = document.querySelectorAll('.book-price')[i].innerHTML.substring(1, document.querySelectorAll('.book-price')[i].innerHTML.length);
+            totalSum += +x;
         }
-        localStorage.setItem('sum', sumInBag);
-        return sumInBag;
+        return totalSum;
     },
 
-    showModal(countItem) {
+    showModal(item) {
         fetch('../../pages/main/books.json')
             .then(response => {
                 return response.json();
             })
             .then(data => {
 
-                document.querySelector('.modal-desc').innerHTML = data[`${countItem}`].description;
+                document.querySelector('.modal-desc').innerHTML = data[`${item}`].description;
                 // Get the modal
                 var modal = document.getElementsByClassName("modal");
                 modal[0].style.display = "block";
@@ -176,7 +178,7 @@ const app = {
 };
 
 
-
+//init app
 app.createMainApplication();
 
 
@@ -184,38 +186,38 @@ app.createMainApplication();
 
 // drag and drop functionality
 let draggedBook;
-document.addEventListener("drag", function( event ) {
+document.addEventListener("drag", function (event) {
     draggedBook = event.target.alt[event.target.alt.length - 1];
 }, false);
 
-document.addEventListener("dragstart", function( event ) {
+document.addEventListener("dragstart", function (event) {
     event.target.style.cursor = 'grabbing';
 }, false);
 
-document.addEventListener("dragend", function( event ) {
+document.addEventListener("dragend", function (event) {
     event.target.style.opacity = "";
 }, false);
 
-document.addEventListener("dragenter", function( event ) {
-    if ( event.target.className == "bag" ) {
+document.addEventListener("dragenter", function (event) {
+    if (event.target.className == "cart") {
         event.target.style.background = "#f3e5d0";
     }
 }, false);
 
-document.addEventListener("dragleave", function( event ) {
-    if ( event.target.className == "bag" ) {
+document.addEventListener("dragleave", function (event) {
+    if (event.target.className == "cart") {
         event.target.style.background = "none";
     }
 }, false);
 
-document.addEventListener("dragover", function( event ) {
+document.addEventListener("dragover", function (event) {
     event.preventDefault();
 }, false);
 
-document.addEventListener("drop", function( event ) {
-    if ( event.target.className == "bag") {
-            event.target.style.background = "none";
-            app.createBooksListCart(draggedBook);
+document.addEventListener("drop", function (event) {
+    if (event.target.className == "cart") {
+        event.target.style.background = "none";
+        app.createBooksListCart(draggedBook);
     }
 }, false);
 

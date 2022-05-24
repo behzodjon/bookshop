@@ -70,12 +70,12 @@ hr {
     padding: 1em;
 }
 
-.bag-text {
+.cart-text {
     text-align: center;
     width: 100%;
 }
 
-.bag {
+.cart {
     height: 20%;
     border: 1px dashed #FA6900;
     border-radius: 10px;
@@ -150,21 +150,21 @@ table td:nth-last-child(1) {
     text-align: right;
 }
 
-.bag {
+.cart {
     margin-top: 2rem;
     display: flex;
     gap: 1rem;
 }
 
-.about-book-bag p {
+.about-book-cart p {
     font-size: 14px;
 }
 
-.book-set-bag {
+.book-cart {
     position: relative;
 }
 
-.book-set-bag img {
+.book-cart img {
     width: 100px;
     height: 100px;
     object-fit: cover;
@@ -180,7 +180,7 @@ p {
     margin: 0;
 }
 
-.bag {
+.cart {
     height: 200px;
 }
 
