@@ -7,15 +7,15 @@ const app = {
         container.classList.add('container');
     },
 
-    //create simple element
-    createElement(element, name, className, position) {
+    //create simple tag
+    createHtmlTag(element, name, className, position) {
         name = document.createElement(element);
         position.append(name);
         name.classList.add(className);
     },
 
-    //create simple elementprepend
-    createElementPrepend(element, name, className, position) {
+    //create simple htmlprepend
+    createHtmlTagPrepend(element, name, className, position) {
         name = document.createElement(element);
         position.prepend(name);
         name.classList.add(className);
@@ -34,26 +34,26 @@ const app = {
   //init application
   createMainApplication() {
     app.createContainer();
-    app.createElement('main', 'main', 'main', document.querySelector('.container'));
-    app.createElement('div', 'main-blocks', 'main-blocks', document.querySelector('.main'));
-    app.createElement('div', 'books-table', 'books-table', document.querySelector('.main-blocks'));
-    app.createElement('div', 'introduction', 'introduction', document.querySelector('.books-table'));
-    app.createElement('h1', 'h1', 'h1', document.querySelector('.introduction'));
+    app.createHtmlTag('main', 'main', 'main', document.querySelector('.container'));
+    app.createHtmlTag('div', 'main-blocks', 'main-blocks', document.querySelector('.main'));
+    app.createHtmlTag('div', 'books-table', 'books-table', document.querySelector('.main-blocks'));
+    app.createHtmlTag('div', 'introduction', 'introduction', document.querySelector('.books-table'));
+    app.createHtmlTag('h1', 'h1', 'h1', document.querySelector('.introduction'));
     document.querySelector('h1').innerHTML = 'Amazing BookShop';
-    app.createElement('p', 'intro-text', 'intro-text', document.querySelector('.introduction'));
+    app.createHtmlTag('p', 'intro-text', 'intro-text', document.querySelector('.introduction'));
     document.querySelector('.intro-text').innerHTML = 'There is no friend as loyal as a book.';
-    app.createElement('div', 'productcont', 'productcont', document.querySelector('.books-table'));
+    app.createHtmlTag('div', 'productcont', 'productcont', document.querySelector('.books-table'));
     for (let i = 0; i < 3; i += 1) {
         app.createBooksList(i);
     }
-    app.createElement('div', 'space', 'space', document.querySelector('.main-blocks'));
-    app.createElement('div', 'cart', 'cart', document.querySelector('.main-blocks'));
-    app.createElement('div', 'cart-text', 'cart-text', document.querySelector('.cart'));
+    app.createHtmlTag('div', 'space', 'space', document.querySelector('.main-blocks'));
+    app.createHtmlTag('div', 'cart', 'cart', document.querySelector('.main-blocks'));
+    app.createHtmlTag('div', 'cart-text', 'cart-text', document.querySelector('.cart'));
     document.querySelector('.cart-text').innerHTML = 'Cart items';
-    app.createElement('div', 'modal', 'modal', document.querySelector('.container'));
-    app.createElement('div', 'modal-content', 'modal-content', document.querySelector('.modal'));
-    app.createElement('p', 'modal-desc', 'modal-desc', document.querySelector('.modal-content'));
-    app.createElement('span', 'closeIcon', 'close', document.querySelector('.modal-content'));
+    app.createHtmlTag('div', 'modal', 'modal', document.querySelector('.container'));
+    app.createHtmlTag('div', 'modal-content', 'modal-content', document.querySelector('.modal'));
+    app.createHtmlTag('p', 'modal-desc', 'modal-desc', document.querySelector('.modal-content'));
+    app.createHtmlTag('span', 'closeIcon', 'close', document.querySelector('.modal-content'));
     document.querySelector('.close').innerHTML = 'X';
 },
     //populating books list
@@ -63,23 +63,23 @@ const app = {
                 return response.json();
             })
             .then(data => {
-                app.createElement('div', 'product', 'product', document.querySelector('.productcont'));
-                app.createElement('div', 'imgWrap', 'imgWrap', document.querySelectorAll('.product')[item]);
+                app.createHtmlTag('div', 'product', 'product', document.querySelector('.productcont'));
+                app.createHtmlTag('div', 'imgWrap', 'imgWrap', document.querySelectorAll('.product')[item]);
                 const imageItem = data[`${item}`].img;
                 app.createImage(`bookImg${item}`, `bookImg${item}`, document.querySelectorAll('.imgWrap')[item], imageItem);
                 document.querySelector(`.bookImg${item}`).classList.add('img');
                 document.querySelector(`.bookImg${item}`).draggable = "true";
-                app.createElement('div', 'about-book', 'about-book', document.querySelectorAll('.product')[item]);
-                app.createElement('p', 'title', 'title', document.querySelectorAll('.about-book')[item]);
+                app.createHtmlTag('div', 'about-book', 'about-book', document.querySelectorAll('.product')[item]);
+                app.createHtmlTag('p', 'title', 'title', document.querySelectorAll('.about-book')[item]);
                 document.querySelectorAll('.title')[item].innerHTML = data[`${item}`].title;
-                if (data[`${item}`].title.length < 14) app.createElement('br', 'br', 'br', document.querySelectorAll('.about-book')[item]);
-                app.createElement('p', 'author', 'author', document.querySelectorAll('.about-book')[item]);
+                if (data[`${item}`].title.length < 14) app.createHtmlTag('br', 'br', 'br', document.querySelectorAll('.about-book')[item]);
+                app.createHtmlTag('p', 'author', 'author', document.querySelectorAll('.about-book')[item]);
                 document.querySelectorAll('.author')[item].innerHTML = data[`${item}`].author;
-                app.createElement('p', 'price', 'price', document.querySelectorAll('.about-book')[item]);
+                app.createHtmlTag('p', 'price', 'price', document.querySelectorAll('.about-book')[item]);
                 document.querySelectorAll('.price')[item].innerHTML = `$${data[`${item}`].price}`;
-                app.createElement('p', 'show-more', 'show-more', document.querySelectorAll('.about-book')[item]);
+                app.createHtmlTag('p', 'show-more', 'show-more', document.querySelectorAll('.about-book')[item]);
                 document.querySelectorAll('.show-more')[item].innerHTML = 'Show more';
-                app.createElement('button', 'add-to-bag', 'add-to-bag', document.querySelectorAll('.about-book')[item]);
+                app.createHtmlTag('button', 'add-to-bag', 'add-to-bag', document.querySelectorAll('.about-book')[item]);
                 document.querySelectorAll('button')[item].innerHTML = 'Add to cart';
                 document.querySelectorAll('button')[item].addEventListener('click', () => app.createBooksListCart(item));
                 document.querySelectorAll('.show-more')[item].addEventListener('click', () => app.showModal(item));
@@ -98,25 +98,25 @@ const app = {
                     return response.json();
                 })
                 .then(data => {
-                    app.createElementPrepend('div', 'book-cart', 'book-cart', document.querySelector('.cart'));
+                    app.createHtmlTagPrepend('div', 'book-cart', 'book-cart', document.querySelector('.cart'));
                     const imageItem = data[`${item}`].img;
                     app.createImage(`book-bag-${item}`, `book-bag-${item}`, document.querySelectorAll('.book-cart')[0], imageItem);
-                    app.createElement('div', 'cross', 'cross', document.querySelectorAll('.book-cart')[0]);
+                    app.createHtmlTag('div', 'cross', 'cross', document.querySelectorAll('.book-cart')[0]);
                     document.querySelectorAll('.cross')[0].innerHTML = 'x';
-                    app.createElement('div', 'about-book-cart', 'about-book-cart', document.querySelectorAll('.book-cart')[0]);
-                    app.createElement('p', 'title-bag', 'title-bag', document.querySelectorAll('.about-book-cart')[0]);
+                    app.createHtmlTag('div', 'about-book-cart', 'about-book-cart', document.querySelectorAll('.book-cart')[0]);
+                    app.createHtmlTag('p', 'title-bag', 'title-bag', document.querySelectorAll('.about-book-cart')[0]);
                     document.querySelectorAll('.title-bag')[0].innerHTML = data[`${item}`].title;
-                    app.createElement('p', 'author-cart', 'author-cart', document.querySelectorAll('.about-book-cart')[0]);
+                    app.createHtmlTag('p', 'author-cart', 'author-cart', document.querySelectorAll('.about-book-cart')[0]);
                     document.querySelectorAll('.author-cart')[0].innerHTML = data[`${item}`].author;
-                    app.createElement('p', 'book-price', 'book-price', document.querySelectorAll('.about-book-cart')[0]);
+                    app.createHtmlTag('p', 'book-price', 'book-price', document.querySelectorAll('.about-book-cart')[0]);
                     document.querySelectorAll('.book-price')[0].innerHTML = `$${data[`${item}`].price}`;
 
                     if (!document.querySelector('.cart-text').innerHTML == '') {
                         document.querySelector('.cart-text').innerHTML = '';
-                        app.createElement('div', 'sum', 'sum', document.querySelector('.cart'));
-                        app.createElement('p', 'total', 'total', document.querySelector('.sum'));
-                        app.createElement('button', 'total-button', 'total-button', document.querySelector('.sum'));
-                        app.createElement('a', 'total-button-a', 'total-button-a', document.querySelector('.total-button'));
+                        app.createHtmlTag('div', 'sum', 'sum', document.querySelector('.cart'));
+                        app.createHtmlTag('p', 'total', 'total', document.querySelector('.sum'));
+                        app.createHtmlTag('button', 'total-button', 'total-button', document.querySelector('.sum'));
+                        app.createHtmlTag('a', 'total-button-a', 'total-button-a', document.querySelector('.total-button'));
                         document.querySelector('.total-button-a').innerHTML = 'Checkout';
                         document.querySelector('.total-button-a').setAttribute('href', '../../pages/form');
                         document.querySelector('.total-button-a').setAttribute('target', '_blank');
